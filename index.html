@@ -83,12 +83,16 @@
   /* ─── HERO ─────────────────────────────────────── */
   .hero {
     min-height: 100vh;
-    background:
-      linear-gradient(160deg, rgba(11,31,58,0.92) 0%, rgba(13,76,146,0.85) 60%, rgba(0,194,168,0.15) 100%),
-      url('https://images.unsplash.com/photo-1588421357574-87938a86fa28?w=1600&q=80') center/cover no-repeat;
+    background: #F0F4FF;
     display: flex; align-items: center;
     padding: 64px 5vw 0;
+    position: relative; overflow: hidden;
   }
+  #hero-canvas {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: 0;
+  }
+  .hero-inner { position: relative; z-index: 1; }
 
   .hero-inner {
     max-width: 1200px; margin: 0 auto; width: 100%;
@@ -109,16 +113,16 @@
     font-family: 'Barlow Condensed', sans-serif;
     font-size: clamp(42px, 5.5vw, 72px);
     font-weight: 800; line-height: 1.05;
-    color: var(--white);
+    color: var(--navy);
     letter-spacing: -0.5px;
     margin-bottom: 24px;
   }
 
-  .hero h1 span { color: var(--acid); }
+  .hero h1 span { color: var(--blue); }
 
   .hero-sub {
-    font-size: 17px; color: rgba(255,255,255,0.75);
-    max-width: 520px; margin-bottom: 40px; font-weight: 300;
+    font-size: 17px; color: var(--steel);
+    max-width: 520px; margin-bottom: 40px; font-weight: 400;
     line-height: 1.7;
   }
 
@@ -138,43 +142,44 @@
   }
 
   .btn-ghost {
-    border: 1.5px solid rgba(255,255,255,0.35); color: var(--white);
+    border: 1.5px solid var(--blue); color: var(--blue);
     padding: 14px 32px; border-radius: 4px;
     font-weight: 500; font-size: 14px; text-decoration: none;
     letter-spacing: 0.5px; text-transform: uppercase;
     transition: border-color 0.2s, background 0.2s;
     display: inline-block;
   }
-  .btn-ghost:hover { border-color: var(--acid); background: rgba(0,194,168,0.08); }
+  .btn-ghost:hover { border-color: var(--acid); background: rgba(0,194,168,0.08); color: var(--navy); }
 
   /* ─── HERO CARD ─────────────────────────────────── */
   .hero-card {
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(0,194,168,0.25);
+    background: rgba(255,255,255,0.75);
+    border: 1px solid rgba(13,76,146,0.15);
     border-radius: 12px; padding: 36px;
     backdrop-filter: blur(12px);
+    box-shadow: 0 4px 32px rgba(13,76,146,0.08);
   }
 
   .hero-card h3 {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 20px; font-weight: 700; color: var(--acid);
+    font-size: 20px; font-weight: 700; color: var(--blue);
     text-transform: uppercase; letter-spacing: 1px;
     margin-bottom: 24px;
     padding-bottom: 12px;
-    border-bottom: 1px solid rgba(0,194,168,0.2);
+    border-bottom: 1px solid rgba(13,76,146,0.12);
   }
 
   .hero-services { list-style: none; display: flex; flex-direction: column; gap: 14px; }
 
   .hero-services li {
     display: flex; align-items: center; gap: 14px;
-    color: rgba(255,255,255,0.85); font-size: 14px; font-weight: 400;
+    color: var(--text); font-size: 14px; font-weight: 400;
     padding: 12px 14px; border-radius: 6px;
-    background: rgba(255,255,255,0.04);
+    background: rgba(13,76,146,0.04);
     transition: background 0.2s;
     text-decoration: none;
   }
-  .hero-services li:hover { background: rgba(0,194,168,0.12); }
+  .hero-services li:hover { background: rgba(0,194,168,0.1); }
 
   .svc-icon {
     width: 34px; height: 34px; border-radius: 6px;
@@ -493,6 +498,7 @@
 
 <!-- HERO -->
 <section class="hero" id="inicio">
+  <canvas id="hero-canvas"></canvas>
   <div class="hero-inner">
     <div class="hero-content">
       <p class="hero-eyebrow">Engenharia Química Industrial</p>
@@ -808,6 +814,102 @@
     </ul>
   </div>
 </footer>
+
+<script>
+(function() {
+  const canvas = document.getElementById('hero-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W, H, mols = [], raf;
+
+  function resize() {
+    const s = canvas.parentElement;
+    W = canvas.width = s.offsetWidth;
+    H = canvas.height = s.offsetHeight;
+  }
+
+  const ATOM_LABELS = ['C','H','O','N','S','P'];
+  const STRUCTURES = [
+    [0, Math.PI*2/3, Math.PI*4/3],
+    [0, Math.PI/2, Math.PI, Math.PI*3/2],
+    [0, Math.PI*2/5, Math.PI*4/5, Math.PI*6/5, Math.PI*8/5],
+    [0, Math.PI*2/3, Math.PI*4/3, Math.PI],
+  ];
+
+  class Mol {
+    constructor(init) {
+      this.reset(init);
+    }
+    reset(init) {
+      this.x = Math.random() * (W || 800);
+      this.y = init ? Math.random() * (H || 600) : (H || 600) + 50;
+      this.vx = (Math.random() - 0.5) * 0.15;
+      this.vy = -(0.04 + Math.random() * 0.08);
+      this.r = 60 + Math.random() * 70;
+      this.rot = Math.random() * Math.PI * 2;
+      this.vrot = (Math.random() - 0.5) * 0.002;
+      this.alpha = 0.07 + Math.random() * 0.03;
+      const s = STRUCTURES[Math.floor(Math.random() * STRUCTURES.length)];
+      this.atoms = s.map(a => ({
+        lbl: ATOM_LABELS[Math.floor(Math.random() * ATOM_LABELS.length)],
+        ax: Math.cos(a) * this.r,
+        ay: Math.sin(a) * this.r
+      }));
+    }
+    draw() {
+      ctx.save();
+      ctx.translate(this.x, this.y);
+      ctx.rotate(this.rot);
+      ctx.globalAlpha = this.alpha;
+      // bonds
+      ctx.strokeStyle = '#0D4C92';
+      ctx.lineWidth = 2;
+      this.atoms.forEach(a => {
+        ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(a.ax, a.ay); ctx.stroke();
+      });
+      // center
+      ctx.beginPath(); ctx.arc(0, 0, 10, 0, Math.PI * 2);
+      ctx.fillStyle = '#0D4C92'; ctx.fill();
+      ctx.strokeStyle = '#00C2A8'; ctx.lineWidth = 2.5; ctx.stroke();
+      // outer atoms
+      this.atoms.forEach(a => {
+        ctx.beginPath(); ctx.arc(a.ax, a.ay, 8, 0, Math.PI * 2);
+        ctx.fillStyle = '#1A2355'; ctx.fill();
+        ctx.strokeStyle = '#1A7EC8'; ctx.lineWidth = 1.5; ctx.stroke();
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '700 9px Inter,sans-serif';
+        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.fillText(a.lbl, a.ax, a.ay);
+      });
+      ctx.restore();
+    }
+    tick() {
+      this.x += this.vx; this.y += this.vy; this.rot += this.vrot;
+      if (this.y < -60) this.reset(false);
+    }
+  }
+
+  function init() {
+    resize();
+    mols = Array.from({ length: 15 }, (_, i) => new Mol(true));
+  }
+
+  function loop() {
+    ctx.clearRect(0, 0, W, H);
+    mols.forEach(m => { m.draw(); m.tick(); });
+    raf = requestAnimationFrame(loop);
+  }
+
+  window.addEventListener('resize', () => {
+    cancelAnimationFrame(raf);
+    init();
+    loop();
+  });
+
+  init();
+  loop();
+})();
+</script>
 
 </body>
 </html>
