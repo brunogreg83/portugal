@@ -13,7 +13,7 @@
     --navy:    #0B1F3A;
     --blue:    #0D4C92;
     --sky:     #1A7EC8;
-    --acid:    #00C2A8;   /* signature teal accent */
+    --acid:    #38B6D8;   /* azul claro accent */   /* signature teal accent */
     --steel:   #3D5A73;
     --mist:    #EBF3FB;
     --smoke:   #F4F7FA;
@@ -78,7 +78,7 @@
     padding: 8px 20px; border-radius: 4px;
     font-weight: 600 !important; transition: background 0.2s !important;
   }
-  .nav-cta:hover { background: #00a892 !important; color: var(--navy) !important; }
+  .nav-cta:hover { background: #2A9FBF !important; color: var(--navy) !important; }
 
   /* ─── HERO ─────────────────────────────────────── */
   .hero {
@@ -138,7 +138,7 @@
   }
   .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0,194,168,0.35);
+    box-shadow: 0 8px 24px rgba(56,182,216,0.35);
   }
 
   .btn-ghost {
@@ -149,7 +149,7 @@
     transition: border-color 0.2s, background 0.2s;
     display: inline-block;
   }
-  .btn-ghost:hover { border-color: var(--acid); background: rgba(0,194,168,0.08); color: var(--navy); }
+  .btn-ghost:hover { border-color: var(--acid); background: rgba(56,182,216,0.08); color: var(--navy); }
 
   /* ─── HERO CARD ─────────────────────────────────── */
   .hero-card {
@@ -179,15 +179,15 @@
     transition: background 0.2s;
     text-decoration: none;
   }
-  .hero-services li:hover { background: rgba(0,194,168,0.12); }
+  .hero-services li:hover { background: rgba(56,182,216,0.12); }
 
   .svc-icon {
     width: 34px; height: 34px; border-radius: 6px;
-    background: rgba(0,194,168,0.18);
+    background: rgba(0,180,216,0.15);
     display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
   }
-  .svc-icon svg { width: 18px; height: 18px; stroke: #0B7A66; fill: none; stroke-width: 2; }
+  .svc-icon svg { width: 18px; height: 18px; stroke: #38B6D8; fill: none; stroke-width: 2; }
 
   /* ─── BAND ──────────────────────────────────────── */
   .stats-band {
@@ -352,7 +352,7 @@
   #sustentabilidade::before {
     content: '';
     position: absolute; top: 0; right: 0; width: 50%; height: 100%;
-    background: radial-gradient(ellipse at 80% 50%, rgba(0,194,168,0.08) 0%, transparent 70%);
+    background: radial-gradient(ellipse at 80% 50%, rgba(56,182,216,0.08) 0%, transparent 70%);
     pointer-events: none;
   }
 
@@ -366,7 +366,7 @@
 
   .sust-card {
     background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(0,194,168,0.2);
+    border: 1px solid rgba(56,182,216,0.2);
     border-radius: 10px; padding: 32px;
     transition: border-color 0.25s;
   }
@@ -387,15 +387,15 @@
 
   .definition-box {
     margin-top: 56px;
-    border: 1px solid rgba(0,194,168,0.3);
+    border: 1px solid rgba(56,182,216,0.3);
     border-radius: 10px; padding: 36px 40px;
-    background: rgba(0,194,168,0.05);
+    background: rgba(56,182,216,0.05);
     display: grid; grid-template-columns: auto 1fr; gap: 32px; align-items: start;
   }
 
   .def-icon {
     width: 56px; height: 56px; border-radius: 50%;
-    background: rgba(0,194,168,0.15);
+    background: rgba(56,182,216,0.15);
     display: flex; align-items: center; justify-content: center; flex-shrink: 0;
   }
   .def-icon svg { width: 28px; height: 28px; stroke: var(--acid); fill: none; stroke-width: 1.8; }
@@ -429,7 +429,7 @@
 
   .cc-icon {
     width: 44px; height: 44px; border-radius: 8px;
-    background: rgba(0,194,168,0.2);
+    background: rgba(56,182,216,0.2);
     display: flex; align-items: center; justify-content: center;
     margin-bottom: 16px;
   }
@@ -482,8 +482,8 @@
   <a class="nav-brand" href="#">
     <div class="nav-logo">
       <svg viewBox="0 0 80 80" width="42" height="42" xmlns="http://www.w3.org/2000/svg">
-        <polygon points="40,4 72,22 72,58 40,76 8,58 8,22" fill="#0B1F3A" stroke="#00C2A8" stroke-width="3"/>
-        <text x="40" y="45" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-weight="800" font-size="18" fill="#00C2A8">APP</text>
+        <polygon points="40,4 72,22 72,58 40,76 8,58 8,22" fill="#0B1F3A" stroke="#38B6D8" stroke-width="3"/>
+        <text x="40" y="45" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-weight="800" font-size="18" fill="#38B6D8">APP</text>
       </svg>
     </div>
     <span class="nav-name">APP <em>Engenharia</em> Química</span>
@@ -669,9 +669,9 @@
           </defs>
           <rect width="400" height="300" fill="url(#bg)"/>
           <!-- Bonds -->
-          <line x1="200" y1="150" x2="120" y2="100" stroke="#00C2A8" stroke-width="2.5" opacity="0.7"/>
-          <line x1="200" y1="150" x2="280" y2="100" stroke="#00C2A8" stroke-width="2.5" opacity="0.7"/>
-          <line x1="200" y1="150" x2="200" y2="230" stroke="#00C2A8" stroke-width="2.5" opacity="0.7"/>
+          <line x1="200" y1="150" x2="120" y2="100" stroke="#38B6D8" stroke-width="2.5" opacity="0.7"/>
+          <line x1="200" y1="150" x2="280" y2="100" stroke="#38B6D8" stroke-width="2.5" opacity="0.7"/>
+          <line x1="200" y1="150" x2="200" y2="230" stroke="#38B6D8" stroke-width="2.5" opacity="0.7"/>
           <line x1="120" y1="100" x2="60" y2="140" stroke="#1A7EC8" stroke-width="2" opacity="0.5"/>
           <line x1="120" y1="100" x2="100" y2="40" stroke="#1A7EC8" stroke-width="2" opacity="0.5"/>
           <line x1="280" y1="100" x2="340" y2="140" stroke="#1A7EC8" stroke-width="2" opacity="0.5"/>
@@ -679,8 +679,8 @@
           <line x1="200" y1="230" x2="150" y2="270" stroke="#1A7EC8" stroke-width="2" opacity="0.5"/>
           <line x1="200" y1="230" x2="250" y2="270" stroke="#1A7EC8" stroke-width="2" opacity="0.5"/>
           <!-- Atoms -->
-          <circle cx="200" cy="150" r="22" fill="#0D4C92" stroke="#00C2A8" stroke-width="2.5"/>
-          <text x="200" y="155" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="14" fill="#00C2A8">C</text>
+          <circle cx="200" cy="150" r="22" fill="#0D4C92" stroke="#38B6D8" stroke-width="2.5"/>
+          <text x="200" y="155" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="14" fill="#38B6D8">C</text>
           <circle cx="120" cy="100" r="16" fill="#0B2A50" stroke="#1A7EC8" stroke-width="2"/>
           <text x="120" y="105" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="12" fill="#1A7EC8">H</text>
           <circle cx="280" cy="100" r="16" fill="#0B2A50" stroke="#1A7EC8" stroke-width="2"/>
@@ -870,7 +870,7 @@
       // center
       ctx.beginPath(); ctx.arc(0, 0, 10, 0, Math.PI * 2);
       ctx.fillStyle = '#0D4C92'; ctx.fill();
-      ctx.strokeStyle = '#00C2A8'; ctx.lineWidth = 2.5; ctx.stroke();
+      ctx.strokeStyle = '#38B6D8'; ctx.lineWidth = 2.5; ctx.stroke();
       // outer atoms
       this.atoms.forEach(a => {
         ctx.beginPath(); ctx.arc(a.ax, a.ay, 8, 0, Math.PI * 2);
